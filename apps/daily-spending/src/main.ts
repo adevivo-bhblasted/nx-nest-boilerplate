@@ -5,12 +5,24 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter()
   );
+
+  // Configurazione di Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Fastify API')
+    .setDescription('Documentazione API con Fastify e Swagger')
+    .setVersion('1.0')
+    .addTag('example') // Aggiungi un tag opzionale
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document); // L'endpoint sarà /api
 
   const port = process.env.PORT || 3000;
 

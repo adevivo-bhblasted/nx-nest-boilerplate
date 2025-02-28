@@ -13,6 +13,9 @@ async function bootstrap() {
     new FastifyAdapter()
   );
 
+  const globalPrefix = 'api';
+  app.setGlobalPrefix(globalPrefix);
+
   // Configurazione di Swagger
   const config = new DocumentBuilder()
     .setTitle('Fastify API')
@@ -22,12 +25,9 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document); // L'endpoint sarà /api
+  SwaggerModule.setup('docs', app, document); // L'endpoint sarà /docs
 
   const port = process.env.PORT || 3000;
-
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
 
   await app.listen(port, '0.0.0.0'); // Ascolta sulla porta 3000
   Logger.log(

@@ -1,7 +1,7 @@
 {
-  "name": "wlp-google-batchs",
+  "name": "daily-spending",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/wlp-google-batchs/src",
+  "sourceRoot": "apps/daily-spending/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -9,34 +9,28 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "webpack-cli build",
-        "args": [
-          "node-env=production"
-        ]
+        "args": ["node-env=production"]
       },
       "configurations": {
         "development": {
-          "args": [
-            "node-env=development"
-          ]
+          "args": ["node-env=development"]
         }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "wlp-google-batchs:build",
+        "buildTarget": "daily-spending:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "wlp-google-batchs:build:development"
+          "buildTarget": "daily-spending:build:development"
         },
         "production": {
-          "buildTarget": "wlp-google-batchs:build:production"
+          "buildTarget": "daily-spending:build:production"
         }
       }
     },
@@ -44,12 +38,6 @@
       "options": {
         "passWithNoTests": true
       }
-    },
-    "docker-build": {
-      "dependsOn": [
-        "build"
-      ],
-      "command": "docker build -f apps/wlp-google-batchs/Dockerfile . -t wlp-google-batchs"
     }
   }
 }
